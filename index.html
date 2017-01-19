@@ -3,32 +3,68 @@
         <title>Mobile smart connect sample</title>
         <link href='css/style.css' rel='stylesheet'>
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="js/jquery.labelify.js"></script>
-        <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+        <script type="text/javascript" src="js/jquery.blockUI.js"></script>       
         
         <script type="text/javascript">
             (function () {
                 "use strict";
 
                 $(document).ready(function() {
-                    
-                    // $.blockUI(
-                    // { 
-                    //     css: { 
-                    //         border: 'none', 
-                    //         padding: '15px', 
-                    //         backgroundColor: '#000', 
-                    //         '-webkit-border-radius': '10px', 
-                    //         '-moz-border-radius': '10px', 
-                    //         opacity: .5, 
-                    //         color: '#fff' 
-                    //     }
-                    // }); 
+                    $("#butLogin").click(function() {       
+                        blockUI(true);
+
+                        var url = "/learner/token/"
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: JSON.stringify(
+                                {
+                                    login: $("#txtSearchLogin").val()
+                                }
+                            ),
+                            dataType: "json",
+                            success: function (data) {
+                                console.log(data);
+                                blockUI(false);
+                            },
+                            error: function (data) {
+                                console.log(data);
+                                blockUI(false);
+                            }
+                        });
+                    });             
                 });  
+
+                function blockUI(block) {
+                    if (block) {
+                        $.blockUI(
+                        { 
+                            css: { 
+                                border: 'none', 
+                                padding: '15px', 
+                                backgroundColor: '#000', 
+                                '-webkit-border-radius': '10px', 
+                                '-moz-border-radius': '10px', 
+                                opacity: .5, 
+                                color: '#fff' 
+                            }
+                        }); 
+                    }
+                    else $.unblockUI();
+                }
+
             })();
         </script>
     </head>
     <body>
-        <div>Hello World</div>
+        <div style="width: 500px">
+            <h2>Log directly onto the mobile app</h2>
+            <label for="txtSearchLogin">What is your login?</label>
+            <input type="text" class="input" id="txtSearchLogin" value="julien.chomarat@crossknowledge.com" />
+            <label for="txtShopID">What is your shop ID</label>
+            <input type="text" class="input" id="txtShopID" />
+            <input type="button" class="input" value="Login" id="butLogin" style="width: 100px; float: right;" />
+        </div>
     </body>
 </html>
