@@ -98,9 +98,8 @@ class ckBowsRestHandler
 		return $result;
 	}
 
-	public function getLearnerToken($args)
+	public function getLearner($args)
 	{
-		//1. Get learner for given input search criteria
 		$relativeUrl = "Learner/?";
 		foreach (get_object_vars($args) as $k => $v)
 		{
@@ -108,26 +107,39 @@ class ckBowsRestHandler
         }
 
 		$response = json_decode($this->CallAPI("GET", $relativeUrl));
+		$this->setHttpHeaders("application/json", 200);
+		
+		$data = new \stdClass;
 
-		if (count($response->value) == 0)
-		{
-			$this->setHttpHeaders("application/json", 404);
-			echo "{}";
+		if ($response == "")
+		{	
+			$data->success = false;
+			$data->message = "NO_LEARNER";
 		}
 		else if (count($response->value) > 1)
 		{
-			$this->setHttpHeaders("application/json", 406);
-			echo "{}";
+			$data->success = false;
+			$data->message = "LEARNERCOUNT_GT_1";
 		}
 		else
 		{
-			$learner = $response->value[0];
-
-			//2. Get token from service
-			//TODO:
-			$this->setHttpHeaders("application/json", 200);
-			echo "{token: 'ABCDE'}";
+			$data->success = true;
+			$data->learner = $response->value[0]->firstName . " " . $response->value[0]->name;
+			$data->learnerId = $response->value[0]->guid;
 		}
+
+		echo json_encode($data);
+	}
+
+	public function getLearnerToken($args)
+	{	
+		$this->setHttpHeaders("application/json", 200);
+		
+		$data = new \stdClass;
+		$data->success = false;
+		$data->token = "ABCDE";
+
+		echo json_encode($data);
 	}
 }
 ?>

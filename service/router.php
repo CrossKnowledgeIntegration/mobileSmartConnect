@@ -2,7 +2,13 @@
 
 require_once("ckBowsRestHandler.php");
 
-if ($_SERVER["REQUEST_URI"] == "/learner/token/" && $_SERVER["REQUEST_METHOD"] === "POST")
+if ($_SERVER["REQUEST_URI"] == "/learner/" && $_SERVER["REQUEST_METHOD"] === "POST")
+{
+    $args = json_decode(file_get_contents("php://input"));
+    $ckBowsRestHandler = new ckBowsRestHandler();
+    return $ckBowsRestHandler->getLearner($args);
+}
+else if ($_SERVER["REQUEST_URI"] == "/learner/token/" && $_SERVER["REQUEST_METHOD"] === "POST")
 {
     $args = json_decode(file_get_contents("php://input"));
     $ckBowsRestHandler = new ckBowsRestHandler();

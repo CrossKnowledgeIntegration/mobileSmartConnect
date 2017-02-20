@@ -13,7 +13,7 @@
                     $("#butLogin").click(function() {       
                         blockUI(true);
 
-                        var url = "/learner/token/"
+                        var url = "/learner/"
 
                         $.ajax({
                             type: "POST",
@@ -23,13 +23,57 @@
                                     login: $("#txtSearchLogin").val()
                                 }
                             ),
-                            dataType: "json",
+                            dataTye: "text",
                             success: function (data) {
-                                console.log(data);
+                                if (!data.success) {
+                                    switch(data.message) {
+                                        case "NO_LEARNER":
+                                           $("#message").html("No learner is matching these parameters.");
+                                           break;
+                                        case "LEARNERCOUNT_GT_1":
+                                           $("#message").html("More than one learner matches these parameters.");
+                                           break;
+                                    }
+                                }
+                                else {
+                                    $("#identity").html(data.learner);
+                                    $("#panel-login").hide();
+                                    $("#panel-confirm").show();
+
+                                    // Attach events
+                                    $("#not-me").click(function() {
+                                        location.href = location.href;
+                                    });
+
+                                    $("#me").click(function() {
+                                        blockUI(true);
+                                        // Search token
+                                        var url = "/learner/token/";
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: url,
+                                            data: JSON.stringify(
+                                                {
+                                                    learnerId: data.learnerId
+                                                }
+                                            ),
+                                            dataTye: "text",
+                                            success: function (data) {
+                                                console.log(data);
+                                                blockUI(false);
+                                            },
+                                            error: function (data) {
+                                                $("#message2").html("An error occured.")
+                                                blockUI(false);
+                                            }
+                                        });
+                                    })
+                                }
                                 blockUI(false);
                             },
                             error: function (data) {
-                                console.log(data);
+                                $("#message").html("An error occured.")
                                 blockUI(false);
                             }
                         });
@@ -58,13 +102,22 @@
         </script>
     </head>
     <body>
-        <div style="width: 500px">
+        <div style="width: 500px" id="panel-login">
             <h2>Log directly onto the mobile app</h2>
             <label for="txtSearchLogin">What is your login?</label>
             <input type="text" class="input" id="txtSearchLogin" value="julien.chomarat@crossknowledge.com" />
             <label for="txtShopID">What is your shop ID</label>
             <input type="text" class="input" id="txtShopID" />
             <input type="button" class="input" value="Login" id="butLogin" style="width: 100px; float: right;" />
+            <div id="message" style="color: red;"></div>
+        </div>
+        <div style="width: 500px; display: none;" id="panel-confirm">
+            <h2>Confirm your identity</h2>
+            Are you <span style="font-weight: bold" id="identity"></span>?
+            <div style="margin-top: 10px;">
+                <a href="#" id="me">I confirm</a> | <a href="#" id="not-me">No, it's not me</a>
+            </div>
+            <div id="message2" style="color: red;"></div>
         </div>
     </body>
 </html>
