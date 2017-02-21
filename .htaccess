@@ -1,0 +1,8 @@
+RewriteEngine On
+#  Rules
+
+RewriteCond %{REQUEST_URI}  !(js|css) [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^index.html$ router.php [L]
+RewriteRule (.*) router.php [L]

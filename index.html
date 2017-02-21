@@ -13,7 +13,7 @@
                     $("#butLogin").click(function() {       
                         blockUI(true);
 
-                        var url = "/learner/"
+                        var url = location.pathname + "learner/"
 
                         $.ajax({
                             type: "POST",
@@ -48,7 +48,7 @@
                                     $("#me").click(function() {
                                         blockUI(true);
                                         // Search token
-                                        var url = "/learner/token/";
+                                        var url = location.pathname + "learner/token/";
 
                                         $.ajax({
                                             type: "POST",
@@ -60,8 +60,11 @@
                                             ),
                                             dataTye: "text",
                                             success: function (data) {
-                                                console.log(data);
                                                 blockUI(false);
+                                                var token = data.token;
+                                                // Redirect to mobileCompanion
+                                                var url = "mobileCompanion://?key=" + token;
+                                                location.href = url;
                                             },
                                             error: function (data) {
                                                 $("#message2").html("An error occured.")

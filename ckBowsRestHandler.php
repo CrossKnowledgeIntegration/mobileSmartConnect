@@ -133,11 +133,14 @@ class ckBowsRestHandler
 
 	public function getLearnerToken($args)
 	{	
+		// Get token
+		$relativeUrl = "Learner/" . $args->learnerId . "/AuthToken";
+		$response = json_decode($this->CallAPI("GET", $relativeUrl));
+
 		$this->setHttpHeaders("application/json", 200);
-		
 		$data = new \stdClass;
 		$data->success = false;
-		$data->token = "ABCDE";
+		$data->token = $response->value->token;
 
 		echo json_encode($data);
 	}
