@@ -16,11 +16,11 @@
                 $(document).ready(function() {                    
                     initVue();
 
-                    $("#start").click(function() {
-                        location.href = "download.html";
+                    $("#next").click(function() {
+                        location.href = "credentials.html";
                     })
                 });
-
+                
             })();
         </script>
     </head>
@@ -34,23 +34,38 @@
                 <h2 class="md-title" style="flex: 1">Welcome</h2>
 
             </md-toolbar>
+
   
             <div class="main-content">
                 <md-layout md-align="center">
                     <md-layout md-flex="true">
+                        <span class="md-display-2">
+                            Step 1: download the app
+                        </span>
+                    </md-layout>
+                </md-layout>              
+                <md-layout md-align="center">
+                    <md-layout md-flex="true">
                         <span class="md-body-2">
-                            Welcome to My Learning. Downloading and connecting to the app is very easy, just follow the three steps…!
+                            Click on the button bellow to open the App Store and download the app. When the app is installed on your phone, just click NEXT.
                         </span>
                     </md-layout>
                 </md-layout>
                 <br />
                 <md-layout md-align="center">
                     <md-layout md-flex="35">
-                        <md-button class="md-raised md-primary" id="start">Click here to start!</md-button>
+                        <img src="img/appStore.png"></img>
+                    </md-layout>
+                </md-layout>
+                <br />
+                <md-layout md-align="end">
+                    <md-layout md-flex="20">
+                        <md-button class="md-primary" id="next">next</md-button>
                     </md-layout>
                 </md-layout>
                 
             </div>
         </div>
+
     </body>
 </html>

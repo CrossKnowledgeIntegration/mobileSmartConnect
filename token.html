@@ -15,12 +15,21 @@
 
                 $(document).ready(function() {                    
                     initVue();
-
-                    $("#start").click(function() {
-                        location.href = "download.html";
+                    toggleBlockUI(true);
+                    var id = getUrlParameterByName("id");
+                    var hub = new hubWrapper();
+                    hub.getLearnerToken({
+                        learnerId: id
                     })
+                    .done(function (data) {
+                        $("#token").html(data.token);
+                        toggleBlockUI(false);
+                    })
+                    .fail(function (data) {
+                        toggleBlockUI(false);    
+                    });
                 });
-
+                
             })();
         </script>
     </head>
@@ -34,23 +43,36 @@
                 <h2 class="md-title" style="flex: 1">Welcome</h2>
 
             </md-toolbar>
-  
+
+
             <div class="main-content">
                 <md-layout md-align="center">
                     <md-layout md-flex="true">
+                        <span class="md-display-2">
+                            Success! Here is your code!
+                        </span>
+                    </md-layout>
+                </md-layout>              
+                <md-layout md-align="center">
+                    <md-layout md-flex="true">
                         <span class="md-body-2">
-                            Welcome to My Learning. Downloading and connecting to the app is very easy, just follow the three steps…!
+                            Here is your connection code, you can copy it and use it to connect in <b>My Learning</b>.
                         </span>
                     </md-layout>
                 </md-layout>
                 <br />
-                <md-layout md-align="center">
-                    <md-layout md-flex="35">
-                        <md-button class="md-raised md-primary" id="start">Click here to start!</md-button>
+                <md-layout md-align="start" md-gutter="18">
+                    <md-layout md-flex="10">
+                        <img src="img/copy.png"></img>
+                    </md-layout>
+                    <md-layout md-flex="20">
+                        <span class="md-display-3" id="token"></span>
                     </md-layout>
                 </md-layout>
                 
             </div>
+
         </div>
+
     </body>
 </html>
