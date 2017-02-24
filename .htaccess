@@ -2,7 +2,8 @@ RewriteEngine On
 #  Rules
 
 RewriteCond %{REQUEST_URI}  !(js|css) [NC]
-RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule ^index.html$ router.php [L]
-RewriteRule (.*) router.php [L]
+# RewriteRule ^token.html$ router.php [L]
+# RewriteRule (.*) router.php [L]
+RewriteRule ^.*learner.*$ router.php [NE,L]
