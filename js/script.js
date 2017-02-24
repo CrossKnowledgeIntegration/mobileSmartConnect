@@ -1,3 +1,12 @@
+/*
+	Main JS
+	Author: Julien Chomarat @ Crossknowledge
+	Project: https://github.com/CrossKnowledgeIntegration/mobileSmartConnect
+
+	This software is provided "AS IS" - Licence MIT (https://opensource.org/licenses/MIT)
+*/
+
+// Show / Hide block UI popup while async tasks are running
 function toggleBlockUI(block) {
     if (block) {
         $.blockUI(
@@ -16,6 +25,7 @@ function toggleBlockUI(block) {
     else $.unblockUI();
 }
 
+// Init VueMaterial (https://vuematerial.github.io) (Responsive framework used)
 function initVue() {
     Vue.use(VueMaterial);
     var App = new Vue({
@@ -23,14 +33,17 @@ function initVue() {
     });
 }
 
+// Parse URL to retrieve query string parameters
 function getUrlParameterByName(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
+// JS wrapper to local web services ckBowsRestHandler.php
 var hubWrapper = function () {
     var self = this; 
 
+    // Get a learner for given search parameters
     //args: {login: X, OTHER SEARCH FIELDS FROM UI}
     self.getLearner = function(args) {
         var url = location.href + "/learner/";
@@ -52,6 +65,7 @@ var hubWrapper = function () {
         return dfd.promise();
     }
 
+    // Get a learner token for a given learner GUID
     //args: {learnerId: X}
     self.getLearnerToken = function(args) {
         var url = location.pathname + "/learner/token/";

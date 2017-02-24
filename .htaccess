@@ -1,9 +1,10 @@
+#	Apache with rewrite_mod htaccess file
+#   Author: Julien Chomarat @ Crossknowledge
+#   Project: https://github.com/CrossKnowledgeIntegration/mobileSmartConnect
+#	This software is provided "AS IS" - Licence MIT (https://opensource.org/licenses/MIT)
+
 RewriteEngine On
 #  Rules
-
 RewriteCond %{REQUEST_URI}  !(js|css) [NC]
-# RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^token.html$ router.php [L]
-# RewriteRule (.*) router.php [L]
 RewriteRule ^.*learner.*$ router.php [NE,L]

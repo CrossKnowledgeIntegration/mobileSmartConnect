@@ -1,5 +1,15 @@
 <?php
 
+/*
+	Router class
+	Author: Julien Chomarat @ Crossknowledge
+	Project: https://github.com/CrossKnowledgeIntegration/mobileSmartConnect
+
+    This class is the router for incoming web service. It allows to keep URL simple
+
+	This software is provided "AS IS" - Licence MIT (https://opensource.org/licenses/MIT)
+*/
+
 require_once("ckBowsRestHandler.php");
 
 function startsWith($haystack, $needle) {

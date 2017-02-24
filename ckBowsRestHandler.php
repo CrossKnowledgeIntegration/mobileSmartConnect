@@ -1,14 +1,31 @@
 <?php
 
+/*
+	Wrapper for all CKLS web services call
+	Author: Julien Chomarat @ Crossknowledge
+	Project: https://github.com/CrossKnowledgeIntegration/mobileSmartConnect
+
+	You need to add a file in the same location called app.ini that will contain
+		* The CKLS instance URL
+		* The CKLS API Key
+
+		CKLS_URL = https://jnstance.crossknowledge.com/API/ADMIN/v1/REST/
+		API-KEY = 68e059c32bc50232fc45df4abd6bc5a9
+
+	This software is provided "AS IS" - Licence MIT (https://opensource.org/licenses/MIT)
+*/
+
 class ckBowsRestHandler
 {
 	private $httpVersion = "HTTP/1.1";
 	private $ini = null;
 
+	// Retreive configuration file
 	function __construct() {
 		$this->ini = parse_ini_file('app.ini');
 	}
 
+	// Finalize HTTP response with status code and content type
 	private function setHttpHeaders($contentType, $statusCode)
 	{		
 		$statusMessage = $this -> getHttpStatusMessage($statusCode);		
@@ -16,6 +33,7 @@ class ckBowsRestHandler
 		header("Content-Type:". $contentType);
 	}
 	
+	// Wrapper for all HTTP statuses
 	private function getHttpStatusMessage($statusCode)
 	{
 		$httpStatus = array(
@@ -63,6 +81,7 @@ class ckBowsRestHandler
 		return ($httpStatus[$statusCode]) ? $httpStatus[$statusCode] : $status[500];
 	}
 
+	// Internal wrapper to call web service using CURL
 	private function CallAPI($method, $relativeUrl, $data = false)
 	{
 		$url = $this->ini["CKLS_URL"] . $relativeUrl;
@@ -97,14 +116,19 @@ class ckBowsRestHandler
 
 		return $result;
 	}
-
+	
+	/*
+		Retrieve a learner for given search parameters
+		This function returns only one match. If no match or more than one is found, 
+		a status message is sent back - and "success" is set to false.
+	*/
 	public function getLearner($args)
 	{
 		$relativeUrl = "Learner/?";
 		foreach (get_object_vars($args) as $k => $v)
 		{
 			$relativeUrl = $relativeUrl . $k . "=" . $v . "&";
-        }
+		}
 
 		$response = json_decode($this->CallAPI("GET", $relativeUrl));
 		$this->setHttpHeaders("application/json", 200);
@@ -131,6 +155,9 @@ class ckBowsRestHandler
 		echo json_encode($data);
 	}
 
+	/*
+		Retrieve a learner token for a given learner GUID
+	*/
 	public function getLearnerToken($args)
 	{	
 		// Get token
