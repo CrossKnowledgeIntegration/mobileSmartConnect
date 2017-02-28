@@ -4,31 +4,31 @@ This project is a sample explaining how you could implement a simplier way to lo
 
 ## Flow
 
-1. Welcome page
+* Welcome page
 
 The learner arrives to this page from a link or a QR Code on a poster. The page is only visible inside your organization for security purposes.
 
 ![Welcome page](docs/step1.png)
 
-2. Download
+* Download
 
 The page show a direct link to download the app for the current device (Android or iOS)
 
 ![Download](docs/step2.png)
 
-3. Credentials
+* Credentials
 
 We ask the learner to identify himself. We can use any fields of the learner’s profile that are sufficiently unique to match only one learner: login, email, reference number, store code, etc…
 
 ![Credentials](docs/step3.png)
 
-4. Identity confirmation
+* Identity confirmation
 
 A web service finds the learner, and we ask him to confirm his identity. This step is optional if we use fields that are sufficiently safe (email)
 
 ![Identity confirmation](docs/step4.png)
 
-5. Code
+* Code
 
 A second web service gets the code, that can now be used to connect to the app.
 
