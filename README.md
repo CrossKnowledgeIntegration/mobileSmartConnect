@@ -26,7 +26,7 @@ We ask the learner to identify himself. We can use any fields of the learner’s
 
 A web service finds the learner, and we ask him to confirm his identity. This step is optional if we use fields that are sufficiently safe (email)
 
-![Identity confirmation](docsstep4.png)
+![Identity confirmation](docs/step4.png)
 
 5. Code
 
