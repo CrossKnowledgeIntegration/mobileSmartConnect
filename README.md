@@ -8,7 +8,7 @@ This project is a sample explaining how you could implement a simplier way to lo
 
 The learner arrives to this page from a link or a QR Code on a poster. The page is only visible inside your organization for security purposes.
 
-![Welcome page](docs/1.png)
+![Welcome page](/CrossKnowledgeIntegration/mobileSmartConnect/docs/1.png)
 
 2. Download
 
