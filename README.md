@@ -1,6 +1,6 @@
 # Mobile smart connect
 
-This project is a sample explaining how you could implement a simplier way to log onto the CrossKnowlesge mobile apps (app Learn and My Learning)
+This project is a sample explaining how you could implement a simplier way to log onto the CrossKnowledge mobile apps (app Learn and My Learning)
 
 ## Flow
 
@@ -40,7 +40,7 @@ A second web service gets the code, that can now be used to connect to the app.
 2. Add a file at the root called app.ini, with the following informatin
 
     CKLS_URL = https://{URL OF YOUR INSTANCE}/API/ADMIN/v1/REST/
-    
+
     API-KEY = {API Key}
 
     Ask your IT consultant for this infomation if you do not have it.
