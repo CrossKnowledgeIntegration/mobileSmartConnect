@@ -40,6 +40,7 @@ A second web service gets the code, that can now be used to connect to the app.
 2. Add a file at the root called app.ini, with the following informatin
 
     CKLS_URL = https://{URL OF YOUR INSTANCE}/API/ADMIN/v1/REST/
+    
     API-KEY = {API Key}
 
     Ask your IT consultant for this infomation if you do not have it.
@@ -49,8 +50,8 @@ to authentify learner’s
 
 ![Credentials](docs/credCode.png)
 
-    Adapt the attribute **cklsField** with the name of the actual field in the LMS, or the Guid if it's a custom field
-    Please note that the code, as it is, consider all fields mandatory. You can of course change it
+Adapt the attribute **cklsField** with the name of the actual field in the LMS, or the Guid if it's a custom field
+Please note that the code, as it is, consider all fields mandatory. You can of course change it
 
 ## Disclaimer
 
